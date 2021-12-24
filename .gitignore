@@ -1,0 +1,3 @@
+*.gz
+*.env
+/backend/node_modules
