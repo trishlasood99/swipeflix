@@ -6,15 +6,15 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // to load environment variables from a .env file into process.env
-require('dotenv').config({path: './config.env'});
+require('dotenv').config({ path: './config.env' });
 
-/*************
-**middleware**
-*************/
+// **************
+// **middleware**
+// **************
 
 // to enable cors for a front-end application
 const corsOptions = {
-  origin:'http://localhost:4200',
+  origin: 'http://localhost:4200',
 };
 app.use(cors(corsOptions));
 
@@ -32,13 +32,21 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
+// Models
+const Movie = require('./models/movie.model');
+
+// Routers
+const movieRouter = require('./routes/movies.routes')(Movie);
+
+app.use('/api', movieRouter);
+
 // simple api endpoint to root
-app.get('/', (req,res) => {
-  res.status(200).json({message: "Welcome to the SwipeFlix API!"});
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the SwipeFlix API!' });
 });
 
 // creating a port for express to listen on
-const port = process.env.PORT|| 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Running on port ${port}`);
