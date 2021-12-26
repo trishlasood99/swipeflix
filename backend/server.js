@@ -34,11 +34,14 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Models
 const Movie = require('./models/movie.model');
+const User = require('./models/user.model');
 
 // Routers
 const movieRouter = require('./routes/movies.routes')(Movie);
+const userRouter = require('./routes/auth.routes')(User);
 
-app.use('/api', movieRouter);
+app.use('/api/movies', movieRouter);
+app.use('/api/auth', userRouter);
 
 // simple api endpoint to root
 app.get('/', (req, res) => {
