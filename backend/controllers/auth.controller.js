@@ -51,8 +51,9 @@ function authController(User) {
           .send({ message: 'Incorrect password. Please try again' });
       }
 
-      // generate a JWT token to be used for subsequent authentication
-      var token = jwt.sign({ id: user._id }, process.env.JWT_SECRET,
+      // generate a JWT token from the object in first argument
+      // to be used for subsequent authentication
+      var token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET,
           { expiresIn: 86400 });
       return res.status(200).send({
         id: user._id,
