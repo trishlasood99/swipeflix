@@ -1,7 +1,6 @@
 /* middleware to check the jwt token in requests for protected resources */
 
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: '../config.env' });
 
 const secretKey = process.env.JWT_SECRET;
 
@@ -12,7 +11,7 @@ const verifyToken = (req, res, next) => {
   }
   return jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ message: 'Unauthorized Access!' });
+      return res.status(401).send(err);
     }
     req.userId = decoded.id;
     req.username = decoded.username;

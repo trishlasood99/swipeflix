@@ -2,7 +2,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-require('dotenv').config({ path: '../config.env' });
+//require('dotenv').config({ path: '../config.env' });
+require('dotenv').config();
 
 function authController(User) {
   function signUp(req, res) {
@@ -24,14 +25,15 @@ function authController(User) {
           message: 'User successfully registered!',
           username: user.username,
           email: user.email,
-      });
+        },
+      );
     });
   }
 
   function logIn(req, res) {
     if (!req.body.username) {
       return res.status(400)
-        .send({ message: 'Incomplete Request. Provide a username'});
+        .send({ message: 'Incomplete Request. Provide a username' });
     }
     return User.findOne({ username: req.body.username }, (err, user) => {
       if (err) {
@@ -53,8 +55,8 @@ function authController(User) {
 
       // generate a JWT token from the object in first argument
       // to be used for subsequent authentication
-      var token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET,
-          { expiresIn: 86400 });
+      const token = jwt
+        .sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: 86400 });
       return res.status(200).send({
         id: user._id,
         username: user.username,
@@ -64,7 +66,7 @@ function authController(User) {
     });
   }
 
-  return {signUp, logIn};
+  return { signUp, logIn };
 }
 
 module.exports = authController;
