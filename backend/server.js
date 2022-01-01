@@ -43,6 +43,7 @@ const User = require('./models/user.model');
 const UserPreference = require('./models/userpreferences.model');
 const Friend = require('./models/friend.model');
 const RightSwipe = require('./models/rightswipe.model');
+const Match = require('./models/match.model');
 
 // Routers
 const movieRouter = require('./routes/movies.routes')(Movie);
@@ -50,6 +51,7 @@ const userRouter = require('./routes/auth.routes')(User);
 const userPreferencesRouter = require('./routes/userpreferences.routes')(UserPreference);
 const friendsRouter = require('./routes/friends.routes')(Friend);
 const rightSwipeRouter = require('./routes/rightswipe.routes')(RightSwipe);
+const matchRouter = require('./routes/matches.routes')(Match);
 
 // Endpoints
 app.use('/api/protected/movies', movieRouter);
@@ -57,6 +59,7 @@ app.use('/api/auth', userRouter);
 app.use('/api/protected/user/preferences', userPreferencesRouter);
 app.use('/api/protected/user/friends', friendsRouter);
 app.use('/api/protected/swipe', rightSwipeRouter);
+app.use('/api/protected/user/matches',matchRouter);
 
 // simple api endpoint to root
 app.get('/', (req, res) => {
