@@ -1,12 +1,11 @@
 function matchController(Match) {
-
   function getAll(req, res) {
     return Match.find({
       $or: [
-        { userId1: req.userId},
-        { userId2: req.userId},
-      ]
-    },(err, matches) => {
+        { userId1: req.userId },
+        { userId2: req.userId },
+      ],
+    }, (err, matches) => {
       if (err) {
         return res.send(err);
       }
@@ -15,11 +14,11 @@ function matchController(Match) {
   }
 
   function del(req, res) {
-    return Match.findOneAndDelete({ _id: req.params.matchId}, (err) => {
+    return Match.findOneAndDelete({ _id: req.params.matchId }, (err) => {
       if (err) {
         return res.send(err);
       }
-      return res.status(203).send({ message: 'Match successfully deleted.'});
+      return res.status(203).send({ message: 'Match successfully deleted.' });
     });
   }
 
@@ -34,11 +33,11 @@ function matchController(Match) {
       userId1: req.friendId,
       movieId: req.body.movieId,
     };
-    return Match.countDocuments({ $or: [ query1, query2 ] }, (err, count) => {
+    return Match.countDocuments({ $or: [query1, query2] }, (err, count) => {
       if (err) {
         return res.send(err);
       }
-      if (count>0) {
+      if (count > 0) {
         return res.send({ message: 'Match already exists' });
       }
       const newMatch = new Match({
@@ -61,16 +60,18 @@ function matchController(Match) {
     }
     return Match.findOneAndUpdate({ _id: req.params.matchId }, {
       isDateSet: true,
-      date: req.body.date
+      date: req.body.date,
     }, { returnDocument: 'after' }, (err, match) => {
       if (err) {
         return res.send(err);
       }
       return res.json(match);
-    })
+    });
   }
 
-  return { getAll, post, del, updateDate};
+  return {
+    getAll, post, del, updateDate,
+  };
 }
 
 module.exports = matchController;

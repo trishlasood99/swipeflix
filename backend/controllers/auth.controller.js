@@ -2,9 +2,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-//require('dotenv').config({ path: '../config.env' });
-require('dotenv').config();
-
 function authController(User) {
   function signUp(req, res) {
     if (!req.body.password) {

@@ -1,7 +1,7 @@
 // to load environment variables from a .env file into process.env
 require('dotenv').config({ path: './config.env' });
 
-//loading dependencies
+// loading dependencies
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // to verify that requests to protected resources have a valid JWT token
-app.use('/api/protected',verifyJWT);
+app.use('/api/protected', verifyJWT);
 
 // TODO:  adding logging
 
@@ -50,16 +50,16 @@ const movieRouter = require('./routes/movies.routes')(Movie);
 const userRouter = require('./routes/auth.routes')(User);
 const userPreferencesRouter = require('./routes/userpreferences.routes')(UserPreference);
 const friendsRouter = require('./routes/friends.routes')(Friend);
-const rightSwipeRouter = require('./routes/rightswipe.routes')(RightSwipe);
+// const rightSwipeRouter = require('./routes/rightswipe.routes')(RightSwipe);
 const matchRouter = require('./routes/matches.routes')(Match);
-
+const findMatchesRouter = require('./routes/findmatches.routes')(Friend, RightSwipe, Match);
 // Endpoints
 app.use('/api/protected/movies', movieRouter);
 app.use('/api/auth', userRouter);
 app.use('/api/protected/user/preferences', userPreferencesRouter);
 app.use('/api/protected/user/friends', friendsRouter);
-app.use('/api/protected/swipe', rightSwipeRouter);
-app.use('/api/protected/user/matches',matchRouter);
+app.use('/api/protected/swipe', findMatchesRouter);
+app.use('/api/protected/user/matches', matchRouter);
 
 // simple api endpoint to root
 app.get('/', (req, res) => {

@@ -1,6 +1,6 @@
 const express = require('express');
 const matchController = require('../controllers/matches.controller');
-const checkUserExists = require('../middleware/userExists.js');
+const checkUserExists = require('../middleware/userExists');
 
 function routes(Match) {
   const matchRouter = new express.Router();
