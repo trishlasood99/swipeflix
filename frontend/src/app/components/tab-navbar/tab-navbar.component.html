@@ -1,0 +1,5 @@
+<nav mat-tab-nav-bar [backgroundColor]="background">
+  <a mat-tab-link *ngFor="let item of links"
+     (click)="onClick(item)"
+     [active]="activeLink == item.link" > {{item.label}} </a>
+</nav>

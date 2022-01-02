@@ -1,0 +1,27 @@
+<p>
+  <mat-toolbar color="primary">
+    <span>SwipeFlix</span>
+    <span class="spacer"></span>
+<!--    <button mat-icon-button class="icon" aria-label="menu icon">
+      <mat-icon>menu</mat-icon>
+    </button> -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with menu">
+    <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Log In</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>account_box</mat-icon>
+        <span>Register</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>help</mat-icon>
+        <span>About App</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+</p>
