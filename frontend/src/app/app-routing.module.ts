@@ -7,9 +7,13 @@ import { MatchQueueComponent } from './components/match-queue/match-queue.compon
 import { AppComponent} from './app.component';
 
 const routes: Routes = [
-  { path: '\profile', component: ProfileComponent },
+  //{ path: '\profile', component: ProfileComponent },
   { path: '\movies', component: MovieQueueComponent },
   { path: '\matches', component: MatchQueueComponent },
+  {
+    path: '\profile',
+    loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule),
+  },
   //{ path: '', component: AppComponent },
 ];
 

@@ -24,8 +24,7 @@ export class TabNavbarComponent implements OnInit {
     }
   ];
   activeLink = this.links[0].link;
-  background: ThemePalette = undefined;
-
+  background:ThemePalette = 'accent';
 
   onClick(item: { label: string, link: string }) {
     this.activeLink = item.link;
