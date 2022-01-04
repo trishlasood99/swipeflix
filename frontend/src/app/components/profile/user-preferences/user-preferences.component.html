@@ -1,1 +1,51 @@
-<p>user-preferences works!</p>
+<form [formGroup]="userPreferenceForm" (ngSubmit)="onSubmit()">
+  <mat-card class="genre-form">
+    <h3> Genres </h3>
+    <mat-card-content>
+      <section class="example-section">
+          <mat-checkbox class="example-margin" formControlName="action">
+            Action
+          </mat-checkbox>
+          <br>
+          <mat-checkbox class="example-margin" formControlName="sciFi">
+            Sci-Fi
+          </mat-checkbox><br>
+          <mat-checkbox class="example-margin" formControlName="drama">
+            Drama
+          </mat-checkbox><br>
+          <mat-checkbox class="example-margin" formControlName="family">
+            Family
+          </mat-checkbox><br>
+          <mat-checkbox class="example-margin" formControlName="thriller">
+            Thriller
+          </mat-checkbox><br>
+          <mat-checkbox class="example-margin" formControlName="romance">
+            Romance
+          </mat-checkbox><br>
+          <mat-checkbox class="example-margin" formControlName="comedy">
+            Comedy
+          </mat-checkbox><br>
+          <mat-checkbox class="example-margin" formControlName="fantasy">
+            Fantasy
+          </mat-checkbox><br>
+          <mat-checkbox class="example-margin" formControlName="documentary">
+            Documentary
+          </mat-checkbox><br>
+      </section>
+    </mat-card-content>
+  </mat-card><br>
+  <mat-card class="genre-form">
+    <h3> IMDb rating greater than </h3>
+    <mat-card-content>
+      <mat-slider
+        thumbLabel
+        [displayWith]="formatLabel"
+        tickInterval="1"
+        step="1"
+        min="0"
+        max="10"
+        aria-label="units" formControlName="imdb"></mat-slider>
+    </mat-card-content>
+  </mat-card><br>
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>

@@ -1,1 +1,25 @@
-<p>friends works!</p>
+<div class = "friend-list" *ngFor = "let friend of friendsList">
+  <mat-card>
+    <mat-card-title>{{friend.username1}} --- {{friend.username2}}</mat-card-title>
+    <mat-card-actions align="end">
+      <button mat-button (click) = "onDelete(friend)"><mat-icon>delete</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<button mat-fab color="primary" aria-label="icon button plus icon" (click) = "toggleForm()">
+    <mat-icon *ngIf="hideForm">add</mat-icon>
+    <mat-icon *ngIf="!hideForm">clear</mat-icon>
+</button>
+<br> <br>
+<mat-card *ngIf="!hideForm">
+  <mat-card-title> Add New Friend </mat-card-title>
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter username of friend</mat-label>
+      <input matInput placeholder="username" [formControl]="friendUsername">
+    </mat-form-field>
+    <mat-card-actions align="end">
+      <button mat-button (click) = "onSave()">Add Friend</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
