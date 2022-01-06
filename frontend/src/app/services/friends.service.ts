@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Friend } from '../models/friend.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

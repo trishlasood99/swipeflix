@@ -15,7 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,7 +55,11 @@ import { FriendsComponent } from './components/profile/friends/friends.component
     MatCardModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDatepickerModule,
     MatSliderModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
     ProfileModule,
     AppRoutingModule,
   ],
