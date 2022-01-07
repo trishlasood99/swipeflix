@@ -1,1 +1,15 @@
-<p>movie-queue works!</p>
+<mat-card style = "margin:30px;padding:40px;">
+  <mat-card-title>
+  <h1 style="font-size:50px">  <a href="{{moviesList[index].movie_imdb_link}}">{{moviesList[index].movie_title}} ( {{moviesList[index].title_year}} ) </a></h1>
+  </mat-card-title>
+  <br><br>
+    <h1> Director: {{moviesList[index].director_name}}</h1>
+    <h1> Duration: {{moviesList[index].duration}}</h1>
+    <h1> Genres: {{moviesList[index].genres}}</h1>
+    <h1> IMDb rating: {{moviesList[index].imdb_score}}</h1>
+
+  <mat-card-actions align="start">
+    <button mat-fab color="warn" (click) = "leftSwipe()"><mat-icon>close</mat-icon></button>
+      <button mat-fab color="primary" (click) = "rightSwipe(moviesList[index]._id)" style="position:absolute;right:40px;"><mat-icon>favorite</mat-icon></button>
+  </mat-card-actions>
+</mat-card>

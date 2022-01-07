@@ -1,0 +1,52 @@
+[
+  {
+    "_id":"61c617f097e855bdde59628c",
+    "director_name":"James Cameron",
+    "duration":"178",
+    "genres":"Action|Adventure|Fantasy|Sci-Fi",
+    "movie_imdb_link":"http://www.imdb.com/title/tt0499549/?ref_=fn_tt_tt_1",
+    "title_year":"2009",
+    "imdb_score":"7.9",
+    "movie_title":"Avatar"
+  },
+  {
+    "_id":"61c617f097e855bdde59628e",
+    "director_name":"Sam Mendes",
+    "duration":"148",
+    "genres":"Action|Adventure|Thriller",
+    "movie_imdb_link":"http://www.imdb.com/title/tt2379713/?ref_=fn_tt_tt_1",
+    "title_year":"2015",
+    "imdb_score":"6.8",
+    "movie_title":"Spectre"
+  },
+  {
+    "_id":"61c617f097e855bdde59628f",
+    "director_name":"Christopher Nolan",
+    "duration":"164",
+    "genres":"Action|Thriller",
+    "movie_imdb_link":"http://www.imdb.com/title/tt1345836/?ref_=fn_tt_tt_1",
+    "title_year":"2012",
+    "imdb_score":"8.5",
+    "movie_title":"The Dark Knight Rises"
+  },
+  {
+    "_id":"61c617f097e855bdde596295",
+    "director_name":"David Yates",
+    "duration":"153",
+    "genres":"Adventure|Family|Fantasy|Mystery",
+    "movie_imdb_link":"http://www.imdb.com/title/tt0417741/?ref_=fn_tt_tt_1",
+    "title_year":"2009",
+    "imdb_score":"7.5",
+    "movie_title":"Harry Potter and the Half-Blood Prince"
+  },
+  {
+    "_id":"61c617f097e855bdde59629d",
+    "director_name":"Joss Whedon",
+    "duration":"173",
+    "genres":"Action|Adventure|Sci-Fi",
+    "movie_imdb_link":"http://www.imdb.com/title/tt0848228/?ref_=fn_tt_tt_1",
+    "title_year":"2012",
+    "imdb_score":"8.1",
+    "movie_title":"The Avengers"
+  }
+]

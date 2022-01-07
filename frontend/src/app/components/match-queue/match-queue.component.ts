@@ -13,7 +13,7 @@ export class MatchQueueComponent implements OnInit {
   matchesList:Match[]=[];
   showMovieDetail:boolean[] = [];
   showDatePicker:boolean[] = [];
-  movie: Movie = new Movie("Steven Spielberg",200,"Drama|War","https://www.imdb.com/title/tt0108052/",1993,8.9,"Schindler's List");
+  movie: Movie = new Movie("4674hrbhj4byug48","Steven Spielberg",200,"Drama|War","https://www.imdb.com/title/tt0108052/",1993,8.9,"Schindler's List");
   selectedMatchId:string[] = [];
   formDate = new FormArray([]);
 
