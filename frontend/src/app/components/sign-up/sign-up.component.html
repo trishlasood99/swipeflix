@@ -1,0 +1,59 @@
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="signUpForm" [editable]="false">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <ng-template matStepLabel>Set a username and password</ng-template>
+      <mat-card>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+      </mat-form-field><br><br>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required>
+      </mat-form-field><br><br>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+      </mat-form-field><br><br>
+      </mat-card>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="userPreferencesForm" [editable]="false">
+    <h3>Genres</h3>
+    <form [formGroup]="userPreferencesForm" (ngSubmit)="setUserPreferences()">
+      <ng-template matStepLabel>Fill out your movie preferences</ng-template>
+      <ng-container formArrayName = "genresList">
+        <div *ngFor = "let _ of genresList.controls; index as i;">
+          <mat-checkbox [formControlName]="i">
+            {{genres[i]}}
+          </mat-checkbox>
+        </div>
+      </ng-container>
+    <br><br><br>
+    <h3>IMDb Rating</h3>
+      <mat-slider
+        thumbLabel
+        [displayWith]="formatLabel"
+        tickInterval="1"
+        step="1"
+        min="0"
+        max="10"
+        aria-label="units" formControlName="imdb"></mat-slider>
+      <br>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>Welcome to SwipeFlix. Your account is successfully registered. Hop over to your profile and add your friends</p>
+    <p>Then start swiping</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>

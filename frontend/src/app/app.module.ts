@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { MovieQueueComponent } from './components/movie-queue/movie-queue.compon
 import { MatchQueueComponent } from './components/match-queue/match-queue.component';
 import { UserPreferencesComponent } from './components/profile/user-preferences/user-preferences.component';
 import { FriendsComponent } from './components/profile/friends/friends.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 
 //AppRoutingModule has to be placed after ProfileModule
 @NgModule({
@@ -39,6 +42,8 @@ import { FriendsComponent } from './components/profile/friends/friends.component
     ProfileComponent,
     MovieQueueComponent,
     MatchQueueComponent,
+    SignUpComponent,
+    LogInComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,7 @@ import { FriendsComponent } from './components/profile/friends/friends.component
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
+    MatStepperModule,
     ProfileModule,
     AppRoutingModule,
   ],

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { UserPreference } from '../../../models/user-preference.model';
-import { FormGroup, FormControl } from '@angular/forms';
 import { UserPreferencesService } from '../../../services/user-preferences.service';
+import { genres } from '../../../../assets/genres';
 
 @Component({
   selector: 'app-user-preferences',
@@ -11,39 +12,40 @@ import { UserPreferencesService } from '../../../services/user-preferences.servi
 export class UserPreferencesComponent implements OnInit {
 
   // Complete list of genres for drop-down menu
-  // selectedGenres: Map = new Map();
   preferences:UserPreference = new UserPreference("","",[],0,0,0);
-  allGenres: string[] = ['Action', 'Drama', 'Thriller', 'Family', 'Sci-Fi', 'Romance', 'Comedy', 'Documentary', 'Fantasy'];
-  userPreferenceForm = new FormGroup(
-    {
-      imdb: new FormControl(),
-      action: new FormControl(),
-      drama: new FormControl(),
-      thriller: new FormControl(),
-      family: new FormControl(),
-      sciFi: new FormControl(),
-      romance: new FormControl(),
-      comedy: new FormControl(),
-      documentary: new FormControl(),
-      fantasy: new FormControl()
-    }
-  );
+  allGenres: string[] = genres;
+  userPreferenceForm = new FormGroup({
+    genreControls: new FormArray([]),
+    imdb: new FormControl()
+  });
 
+  genreControls: FormArray = this.userPreferenceForm.get('genreControls') as FormArray;
 
   constructor(private userPreferencesService: UserPreferencesService) {
 
   }
 
   ngOnInit(): void {
-    this.getPreferences();
-
-
+    this.prePopulateForm();
   }
 
+  prePopulateForm () {
+    for(let i = 0; i < this.allGenres.length; i++) {
+      this.genreControls.push(new FormControl());
+    }
+    this.getPreferences();
+  }
   onSubmit() {
-    console.log(this.userPreferenceForm.value);
-    // TODO: form processing
-    // TODO: call service to create/update preferences
+
+    let imdb_rating = this.userPreferenceForm.get('imdb')!.value;
+    let selectedGenres = [];
+    for(let i=0;i<this.genreControls.length;i++) {
+      if(this.genreControls.at(i).value) {
+        selectedGenres.push(this.allGenres[i]);
+      }
+    }
+    this.userPreferencesService.postUserPreferences(selectedGenres,imdb_rating);
+
   }
 
   formatLabel(value: number) {
@@ -56,22 +58,18 @@ export class UserPreferencesComponent implements OnInit {
       this.preferences=preferences;
       console.log(this.preferences);
       //Pre-populate the form
-      var formObj:any = {};
+      let formObj:any = {};
       formObj.imdb = this.preferences.imdb_rating;
 
       for (let x of this.preferences.genres) {
-        if(x=='Sci-Fi') {
-          formObj.sciFi=true;
-        } else {
-          formObj[x.toLowerCase()]=true;
-        }
+        let i = this.allGenres.indexOf(x);
+        this.genreControls.at(i).setValue(true);
       }
-      console.log(formObj);
+      //console.log(formObj);
       this.userPreferenceForm.patchValue(formObj);
 
     });
 
   }
-}
 
-// this.preferences=new UserPreference(preferences._id,preferences.user,preferences.genres,preferences.imdb_rating,preferences.page,preferences.__v));
+}

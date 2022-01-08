@@ -12,4 +12,9 @@ export class UserPreferencesService {
   getUserPreferences():Observable<any> {
     return this.http.get('assets/dummy-data/user-preferences.data.json');
   }
+
+  postUserPreferences(genres:string[], rating: number) {
+    console.log(genres);
+    console.log(rating);
+  }
 }

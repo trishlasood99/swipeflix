@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MovieQueueComponent } from './components/movie-queue/movie-queue.component';
 import { MatchQueueComponent } from './components/match-queue/match-queue.component';
-import { AppComponent} from './app.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 
 const routes: Routes = [
   //{ path: '\profile', component: ProfileComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
     path: '\profile',
     loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule),
   },
-  //{ path: '', component: AppComponent },
+  { path: '\signup', component: SignUpComponent },
+  { path: '\login', component: LogInComponent }
 ];
 
 @NgModule({
