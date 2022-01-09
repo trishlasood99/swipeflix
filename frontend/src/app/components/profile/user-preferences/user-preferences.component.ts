@@ -44,7 +44,7 @@ export class UserPreferencesComponent implements OnInit {
         selectedGenres.push(this.allGenres[i]);
       }
     }
-    this.userPreferencesService.postUserPreferences(selectedGenres,imdb_rating);
+    this.userPreferencesService.patchUserPreferences(selectedGenres,imdb_rating).subscribe();
 
   }
 

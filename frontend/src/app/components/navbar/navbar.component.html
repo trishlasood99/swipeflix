@@ -21,6 +21,10 @@
         <mat-icon>help</mat-icon>
         <span>About App</span>
       </button>
+      <button mat-menu-item [disabled]="!isLoggedIn" (click) = "onLogOut()">
+        <mat-icon>settings_power</mat-icon>
+        <span>Log Out</span>
+      </button>
     </mat-menu>
 
   </mat-toolbar>

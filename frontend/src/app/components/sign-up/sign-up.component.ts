@@ -55,7 +55,7 @@ export class SignUpComponent implements OnInit {
   signUp() {
     let user = new User(this.signUpForm.get('username')!.value, this.signUpForm.get('email')!.value,
       this.signUpForm.get('password')!.value);
-    this.authService.signUp(user);
+    this.authService.signUp(user).subscribe((data:any) => console.log(data.message));
   }
 
   setUserPreferences() {

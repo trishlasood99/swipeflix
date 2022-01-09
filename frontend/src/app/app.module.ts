@@ -1,6 +1,10 @@
-// TODO: tidy up import statements
+// Angular Imports
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// Angular Material Imports
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -11,8 +15,6 @@ import { ProfileModule } from './components/profile/profile.module';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -32,6 +34,8 @@ import { UserPreferencesComponent } from './components/profile/user-preferences/
 import { FriendsComponent } from './components/profile/friends/friends.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LogInComponent } from './components/log-in/log-in.component';
+
+import { authInterceptorProviders } from './interceptors/auth.interceptor';
 
 //AppRoutingModule has to be placed after ProfileModule
 @NgModule({
@@ -69,7 +73,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
     ProfileModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

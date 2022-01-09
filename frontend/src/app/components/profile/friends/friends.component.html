@@ -12,14 +12,17 @@
 </button>
 <br> <br>
 <mat-card *ngIf="!hideForm">
+  <form [formGroup]="friendForm" (ngSubmit)="onSave()">
   <mat-card-title> Add New Friend </mat-card-title>
+  <br><br>
   <mat-card-content>
     <mat-form-field appearance="fill">
       <mat-label>Enter username of friend</mat-label>
-      <input matInput placeholder="username" [formControl]="friendUsername">
+      <input matInput placeholder="username" formControlName="username" required>
     </mat-form-field>
     <mat-card-actions align="end">
-      <button mat-button (click) = "onSave()">Add Friend</button>
+      <button mat-button type="submit" >Add Friend</button>
     </mat-card-actions>
   </mat-card-content>
+  </form>
 </mat-card>

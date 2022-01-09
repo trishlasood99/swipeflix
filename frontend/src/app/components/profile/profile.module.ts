@@ -9,8 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
-import {MatFormFieldModule} from '@angular/material/form-field';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
 import { FriendsComponent } from './friends/friends.component';
 import { UserPreferencesComponent } from './user-preferences/user-preferences.component';
 import { ProfileComponent } from './profile.component';
@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSliderModule,
     MatFormFieldModule,
     MatIconModule,
+    MatInputModule
   ],
   declarations: [
     FriendsComponent,
