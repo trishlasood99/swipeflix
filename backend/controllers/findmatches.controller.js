@@ -21,6 +21,7 @@ function findMatchesController(Friend, RightSwipe, Match) {
     const newSwipe = new RightSwipe({
       userId: req.userId,
       movieId: req.body.movieId,
+      movieName: req.body.movieName,
     });
     try {
       await newSwipe.save();
@@ -30,11 +31,14 @@ function findMatchesController(Friend, RightSwipe, Match) {
     let flag = 0;
     for (const friend of friends) {
       let friendId;
+      let friendUsername;
       let friendSwipe;
       if (req.userId == friend.friend1) {
         friendId = friend.friend2;
+        friendUsername = friend.username2;
       } else {
         friendId = friend.friend1;
+        friendUsername = friend.username1;
       }
       try {
         friendSwipe = await RightSwipe.find({ userId: friendId, movieId: req.body.movieId }).exec();
@@ -47,6 +51,9 @@ function findMatchesController(Friend, RightSwipe, Match) {
           userId1: req.userId,
           userId2: friendId,
           movieId: req.body.movieId,
+          username1: req.username,
+          username2: friendUsername,
+          movieName: newSwipe.movieName,
         });
         try {
           await newMatch.save();

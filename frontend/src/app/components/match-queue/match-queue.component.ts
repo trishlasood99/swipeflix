@@ -3,6 +3,7 @@ import { MatchesService } from '../../services/matches.service';
 import { Match } from '../../models/match.model';
 import { Movie } from '../../models/movie.model';
 import { FormControl, FormArray } from '@angular/forms';
+import { MoviesService } from '../../services/movies.service';
 
 @Component({
   selector: 'app-match-queue',
@@ -13,11 +14,11 @@ export class MatchQueueComponent implements OnInit {
   matchesList:Match[]=[];
   showMovieDetail:boolean[] = [];
   showDatePicker:boolean[] = [];
-  movie: Movie = new Movie("4674hrbhj4byug48","Steven Spielberg",200,"Drama|War","https://www.imdb.com/title/tt0108052/",1993,8.9,"Schindler's List");
+  movie: Movie[] = [];
   selectedMatchId:string[] = [];
   formDate = new FormArray([]);
 
-  constructor(private matchService: MatchesService) { }
+  constructor(private matchService: MatchesService, private movieService: MoviesService) { }
 
   ngOnInit(): void {
     this.getMatches();
@@ -25,20 +26,27 @@ export class MatchQueueComponent implements OnInit {
 
   getMatches():void{
     this.matchService.getMatches().subscribe( (matches) => {
+      //console.log(matches);
       this.matchesList = matches
+      console.log(this.matchesList);
       for(let i = 0;i<this.matchesList.length;i++) {
         this.showMovieDetail.push(false);
         this.showDatePicker.push(false);
         this.selectedMatchId.push("");
         this.formDate.push(new FormControl());
+        this.movie.push(new Movie("","",0,"","",0,0,""));
       }
     });
   }
 
   getMovieDetails(movieId: string,index: number) {
     // TODO: call service to get movie by id
-    console.log(movieId);
-    this.showMovieDetail[index] = (this.showMovieDetail[index])?false:true;
+    //console.log(movieId);
+    this.movieService.getMovieById(movieId).subscribe(movie => {
+      this.movie[index]=movie;
+      this.showMovieDetail[index] = (this.showMovieDetail[index])?false:true;
+    })
+
   }
 
   setDate(matchId:string, index:number) {
@@ -48,16 +56,19 @@ export class MatchQueueComponent implements OnInit {
   }
 
   updateDateSet(index:number) {
-    // TODO: call service to update set date
-    console.log("Date set for "+this.selectedMatchId[index]+" changed to "+this.formDate.at(index).value);
+    this.matchService.setMatchDate(this.selectedMatchId[index],this.getFormControl(index).value).subscribe((match) => {
+      this.matchesList[index]=match;
+      //console.log("Date set for "+this.selectedMatchId[index]+" changed to "+this.formDate.at(index).value);
+    });
   }
 
   onRemove(match:Match): void{
-    const index = this.matchesList.indexOf(match, 0);
-    if (index > -1) {
-      this.matchesList.splice(index, 1);
-    }
-    // TODO: call to service to delete this friendship
+    this.matchService.deleteMatch(match._id).subscribe(() => {
+      const index = this.matchesList.indexOf(match, 0);
+      if (index > -1) {
+        this.matchesList.splice(index, 1);
+      }
+    })
   }
 
   getFormControl(index:number) {

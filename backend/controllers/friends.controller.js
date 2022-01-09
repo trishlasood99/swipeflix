@@ -34,21 +34,10 @@ function friendsController(Friend) {
   }
 
   function del(req, res) {
-    if (!req.body.friend) {
+    if (!req.params.friendId) {
       return res.status(400).send({ message: 'Incomplete request. Provide username of friend' });
     }
-    return Friend.findOne({
-      $or: [
-        {
-          username1: req.body.friend,
-          username2: req.username,
-        },
-        {
-          username1: req.username,
-          username2: req.body.friend,
-        },
-      ],
-    }, (err, friend) => {
+    return Friend.findById(req.params.friendId, (err, friend) => {
       if (err) {
         return res.status(500).send(err);
       }

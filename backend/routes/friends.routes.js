@@ -9,7 +9,7 @@ function routes(Friend) {
 
   friendsRouter.get('/', controller.get);
   friendsRouter.post('/', [checkUserExists, checkFriendsAlready], controller.post);
-  friendsRouter.delete('/', checkUserExists, controller.del);
+  friendsRouter.delete('/:friendId', controller.del);
 
   return friendsRouter;
 }

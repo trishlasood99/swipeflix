@@ -33,15 +33,17 @@ export class FriendsComponent implements OnInit {
 
   onDelete(friend:Friend): void{
 
-    //this.friendsService.removeFriend(friend._id).subscribe();
-    const index = this.friendsList.indexOf(friend, 0);
-    if (index > -1) {
-      this.friendsList.splice(index, 1);
-    }
+    this.friendsService.removeFriend(friend._id).subscribe(()=> {
+      const index = this.friendsList.indexOf(friend, 0);
+      if (index > -1) {
+        this.friendsList.splice(index, 1);
+      }
+    });
+
     // TODO: call to service to delete this friendship
   }
 
-  onSave(): void{  
+  onSave(): void{
     this.friendsService.addFriend(this.friendForm.get('username')!.value).subscribe(friend => this.friendsList.push(friend));
   }
 }

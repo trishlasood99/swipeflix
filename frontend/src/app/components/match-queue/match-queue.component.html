@@ -1,7 +1,7 @@
 <br><br><br>
 <div *ngFor = "let match of matchesList; index as i" style = "width:60%">
   <mat-card style="left:35%">
-    <mat-card-title>{{match.userId1}} --- {{match.userId2}}</mat-card-title>
+    <mat-card-title>{{match.movieName}} with {{match.username1}},{{match.username2}}</mat-card-title>
     <mat-card-content *ngIf="match.isDateSet">Date set for: {{match.date}}</mat-card-content>
     <mat-card-actions align="end">
       <button mat-button (click) = "getMovieDetails(match.movieId,i)">
@@ -14,13 +14,13 @@
   </mat-card>
   <mat-card *ngIf = "showMovieDetail[i]" style = "width:60%;left:30%">
     <mat-card-title>
-      <a href="{{movie.movie_imdb_link}}">{{movie.movie_title}} ( {{movie.title_year}} ) </a>
+      <a href="{{movie[i].movie_imdb_link}}">{{movie[i].movie_title}} ( {{movie[i].title_year}} ) </a>
     </mat-card-title>
     <mat-card-content>
-      <p> Director: {{movie.director_name}}</p>
-      <p> Duration: {{movie.duration}}</p>
-      <p> Genres: {{movie.genres}}</p>
-      <p> IMDb rating: {{movie.imdb_score}}</p>
+      <p> Director: {{movie[i].director_name}}</p>
+      <p> Duration: {{movie[i].duration}}</p>
+      <p> Genres: {{movie[i].genres}}</p>
+      <p> IMDb rating: {{movie[i].imdb_score}}</p>
     </mat-card-content>
   </mat-card>
   <br><br><br>

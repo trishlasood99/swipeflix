@@ -16,7 +16,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  signUp(user: User) {
+  signUp(user: User):Observable<any> {
     return this.http.post(AUTH_API+'/signup',{
       username:user.username,
       email:user.email,
@@ -24,7 +24,7 @@ export class AuthService {
     }, httpOptions);
   }
 
-  signIn(username: string, password: string) {
+  signIn(username: string, password: string):Observable<any> {
     return this.http.post(AUTH_API+'/login',{
       username:username,
       password:password

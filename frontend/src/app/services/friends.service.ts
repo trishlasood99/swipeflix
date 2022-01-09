@@ -22,9 +22,9 @@ export class FriendsService {
   addFriend(username:string):Observable<any> {
     return this.http.post(API_ENDPOINT,{ friend: username }, httpOptions);
   }
-  /*
+
   removeFriend(_id:string):Observable<any> {
-    return this.http.delete(API_ENDPOINT,);
+    return this.http.delete(API_ENDPOINT+'/'+_id);
   }
-  */
+
 }
