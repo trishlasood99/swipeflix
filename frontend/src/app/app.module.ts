@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +37,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
+import { errorInterceptorProviders } from './interceptors/error.interceptor';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 //AppRoutingModule has to be placed after ProfileModule
 @NgModule({
@@ -48,6 +51,7 @@ import { authInterceptorProviders } from './interceptors/auth.interceptor';
     MatchQueueComponent,
     SignUpComponent,
     LogInComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,10 +74,11 @@ import { authInterceptorProviders } from './interceptors/auth.interceptor';
     MatNativeDateModule,
     MatInputModule,
     MatStepperModule,
+    MatDialogModule,
     ProfileModule,
     AppRoutingModule,
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, errorInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

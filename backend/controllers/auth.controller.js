@@ -46,7 +46,7 @@ function authController(User) {
       // compares given password with the hash stored in the collection
       const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
       if (!passwordIsValid) {
-        return res.status(403)
+        return res.status(401)
           .send({ message: 'Incorrect password. Please try again' });
       }
 

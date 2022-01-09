@@ -9,7 +9,7 @@ function rightSwipeController(RightSwipe) {
     query.movieId = req.query.movieId;
     return RightSwipe.countDocuments(query, (err, count) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       if (count > 0) {
         return res.send({ liked: true });
@@ -28,7 +28,7 @@ function rightSwipeController(RightSwipe) {
     query.movieId = req.body.movieId;
     return RightSwipe.countDocuments(query, (err, count) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       if (count > 0) {
         return res.send({ message: 'User already likes movie' });
@@ -41,7 +41,7 @@ function rightSwipeController(RightSwipe) {
       );
       return newRightSwipe.save((error, swipe) => {
         if (error) {
-          return res.send(err);
+          return res.status(500).send(err);
         }
         return res.send(swipe);
       });

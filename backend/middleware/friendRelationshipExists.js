@@ -16,7 +16,7 @@ const checkFriendsAlready = (req, res, next) => {
     ],
   }, (err, records) => {
     if (err) {
-      return res.send(err);
+      return res.status(500).send(err);
     }
     if (records.length > 0) {
       return res.status(200).send({ message: `${req.body.friend} is already a friend` });

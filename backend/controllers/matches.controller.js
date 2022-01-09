@@ -7,7 +7,7 @@ function matchController(Match) {
       ],
     }, (err, matches) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       return res.json(matches);
     });
@@ -16,7 +16,7 @@ function matchController(Match) {
   function del(req, res) {
     return Match.findOneAndDelete({ _id: req.params.matchId }, (err) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       return res.status(203).send({ message: 'Match successfully deleted.' });
     });
@@ -35,7 +35,7 @@ function matchController(Match) {
     };
     return Match.countDocuments({ $or: [query1, query2] }, (err, count) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       if (count > 0) {
         return res.send({ message: 'Match already exists' });
@@ -47,7 +47,7 @@ function matchController(Match) {
       });
       return newMatch.save((error, match) => {
         if (error) {
-          return res.send(error);
+          return res.status(500).send(error);
         }
         return res.json(match);
       });
@@ -56,14 +56,14 @@ function matchController(Match) {
 
   function updateDate(req, res) {
     if (!req.body.date) {
-      return res.send({ message: 'Incomplete request' });
+      return res.status(400).send({ message: 'Incomplete request' });
     }
     return Match.findOneAndUpdate({ _id: req.params.matchId }, {
       isDateSet: true,
       date: req.body.date,
     }, { returnDocument: 'after' }, (err, match) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       return res.json(match);
     });

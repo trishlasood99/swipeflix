@@ -1,11 +1,11 @@
 function userPreferencesController(UserPreferences) {
   function get(req, res) {
     if (!req.userId) {
-      return res.status(400).send({ message: 'Request does not provide userId' });
+      return res.status(400).send({ message: 'Incomplete request. Request does not provide userId' });
     }
     return UserPreferences.findOne({ user: req.userId }, (err, preferences) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       if (preferences) {
         return res.json(preferences);
@@ -16,7 +16,7 @@ function userPreferencesController(UserPreferences) {
 
   function post(req, res) {
     if (!req.userId) {
-      return res.status(400).send({ message: 'Request does not provide userId' });
+      return res.status(400).send({ message: 'Incomplete request. Request does not provide userId' });
     }
     const newUserPreferences = new UserPreferences(
       {
@@ -29,7 +29,7 @@ function userPreferencesController(UserPreferences) {
 
     return newUserPreferences.save((err, pref) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       return res.json(pref);
     });
@@ -41,7 +41,7 @@ function userPreferencesController(UserPreferences) {
     }
     return UserPreferences.findOne({ user: req.userId }, (err, record) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
 
       // loops over key-value pairs in request body and updates those fields in the fetched
@@ -52,8 +52,8 @@ function userPreferencesController(UserPreferences) {
         record[key] = value;
       });
       return record.save((error) => {
-        if (err) {
-          return res.send(error);
+        if (error) {
+          return res.status(500).send(error);
         }
         return res.json(record);
       });

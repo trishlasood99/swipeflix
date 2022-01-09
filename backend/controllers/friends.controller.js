@@ -7,7 +7,7 @@ function friendsController(Friend) {
       ],
     }, (err, friends) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       if (friends) {
         return res.json(friends);
@@ -27,7 +27,7 @@ function friendsController(Friend) {
     );
     return newFriend.save((error, friend) => {
       if (error) {
-        return res.send(error);
+        return res.status(500).send(error);
       }
       return res.json(friend);
     });
@@ -50,12 +50,12 @@ function friendsController(Friend) {
       ],
     }, (err, friend) => {
       if (err) {
-        return res.send(err, friend);
+        return res.status(500).send(err);
       }
       if (friend) {
         return friend.remove((error) => {
           if (error) {
-            return res.send(error);
+            return res.status(500).send(error);
           }
           return res.sendStatus(204);
         });

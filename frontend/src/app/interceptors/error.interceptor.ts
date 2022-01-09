@@ -1,17 +1,24 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { HttpErrorResponse, HttpEvent, HttpHandler,HttpInterceptor, HttpRequest } from '@angular/common/http';
-
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import {
+    HttpInterceptor,
+    HttpRequest,
+    HttpResponse,
+    HttpHandler,
+    HttpEvent,
+    HttpErrorResponse
+} from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { ErrorService } from '../services/error.service';
 
 //HttpInterceptor is an interface that allows us to implement the intercept function
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) { }
+  constructor(private errorService: ErrorService) { }
 
   /*
    The intercept function identifies and handles a given HTTP request.
@@ -21,14 +28,11 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status == 401 || err.status == 403) {
-          this.router.navigate(['/login']);
-        }
-        else if(err.status == 400 || err.status==500)
-        {
-          this.router.navigate(['/resultsnotfound/'+err.status]);
-        }
-        else {
+        if (err.status == 401 || err.status == 403 || err.status == 404 || err.status == 500) {
+          let data = err.error.message;
+          this.errorService.openDialogBox(data);
+          return throwError(err);
+        } else {
           return throwError(err);
         }
       })

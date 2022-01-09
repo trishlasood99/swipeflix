@@ -8,12 +8,12 @@ function findMatchesController(Friend, RightSwipe, Match) {
     try {
       swipe = await RightSwipe.find({ userId: req.userId, movieId: req.body.movieId }).exec();
     } catch (err) {
-      return res.send(err);
+      return res.status(500).send(err);
     }
     try {
       friends = await Friend.find({ $or: [{ friend1: req.userId }, { friend2: req.userId }] }).exec();
     } catch (error) {
-      return res.send(error);
+      return res.status(500).send(error);
     }
     if (swipe.length > 0) {
       return res.send({ message: 'User has already liked this movie' });
@@ -25,7 +25,7 @@ function findMatchesController(Friend, RightSwipe, Match) {
     try {
       await newSwipe.save();
     } catch (err) {
-      return res.send(err);
+      return res.status(500).send(err);
     }
     let flag = 0;
     for (const friend of friends) {
@@ -39,7 +39,7 @@ function findMatchesController(Friend, RightSwipe, Match) {
       try {
         friendSwipe = await RightSwipe.find({ userId: friendId, movieId: req.body.movieId }).exec();
       } catch (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       if (friendSwipe.length > 0) {
         flag += 1;
@@ -51,7 +51,7 @@ function findMatchesController(Friend, RightSwipe, Match) {
         try {
           await newMatch.save();
         } catch (err) {
-          return res.send(err);
+          return res.status(500).send(err);
         }
       }
     }
