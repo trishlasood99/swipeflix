@@ -23,7 +23,7 @@ function userPreferencesController(UserPreferences) {
         user: req.userId,
         genres: req.body.genres,
         imdb_rating: req.body.imdb_rating,
-        page: 0,
+        page: 1,
       },
     );
 
@@ -51,6 +51,7 @@ function userPreferencesController(UserPreferences) {
         const value = item[1];
         record[key] = value;
       });
+      record.page=1;
       return record.save((error) => {
         if (error) {
           return res.status(500).send(error);

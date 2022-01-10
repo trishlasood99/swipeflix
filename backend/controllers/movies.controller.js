@@ -1,4 +1,4 @@
-function movieController(Movie) {
+function movieController(Movie, UserPreference) {
   // to get movie details by id
   function getById(req, res) {
     return Movie.findById(req.params.movieId, (err, movie) => {
@@ -44,17 +44,18 @@ function movieController(Movie) {
 
   // to fetch paginated list of movie records from the database filtered by genre
   // and imdb_rating
-  // TODO: Decide whether we bring in all the left-swiped movies too when the
-  // rest of the list is exhausted
-  function getAll(req, res) {
-    // TODO: genre and imdb rating preferences to be input from the user
-    // preferences collection
-    const genres = ['Family', 'Sci-Fi', 'Action', 'Thriller'];
-    const ratingGreaterThan = 7;
-    const regex = genres.join('|');
+  async function getAll(req, res) {
+    try {
+      preferences = await UserPreference.findOne({ user: req.userId }).exec();
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    let genres = preferences.genres;
+    let regex = genres.join('|');
+    let ratingGreaterThan = preferences.imdb_rating;
+    let page = preferences.page;
 
-    // TODO: page number will come from the user history collection
-    const pageNo = 2;
     const queryOptions = {
       genres: {
         $regex: regex,
@@ -64,16 +65,22 @@ function movieController(Movie) {
         $gte: ratingGreaterThan,
       },
     };
-    return Movie.find(queryOptions).limit(10).skip((pageNo - 1) * 10)
+    return Movie.find(queryOptions).limit(10).skip((page-1)*10)
       .sort('-imdb_score')
       .exec((err, movies) => {
-        if (err) {
+        if(err) {
           return res.send(err);
         }
-        if (movies) {
-          return res.json(movies);
+        if(movies) {
+          preferences.page+=1;
+          return preferences.save((error) => {
+            if(error) {
+              return res.status(500).send(error);
+            }
+            return res.json(movies);
+          });
         }
-        return res.send({ message: 'No more movies matching your preferences' });
+        return res.status(404).send({ message: 'No more movies matching your preferences' });
       });
   }
 

@@ -46,7 +46,7 @@ const RightSwipe = require('./models/rightswipe.model');
 const Match = require('./models/match.model');
 
 // Routers
-const movieRouter = require('./routes/movies.routes')(Movie);
+const movieRouter = require('./routes/movies.routes')(Movie, UserPreference);
 const userRouter = require('./routes/auth.routes')(User);
 const userPreferencesRouter = require('./routes/userpreferences.routes')(UserPreference);
 const friendsRouter = require('./routes/friends.routes')(Friend);

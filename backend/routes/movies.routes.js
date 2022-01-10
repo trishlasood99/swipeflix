@@ -1,9 +1,9 @@
 const express = require('express');
 const movieController = require('../controllers/movies.controller');
 
-function routes(Movie) {
+function routes(Movie, UserPreference) {
   const movieRouter = express.Router();
-  const controller = movieController(Movie);
+  const controller = movieController(Movie, UserPreference);
 
   movieRouter.route('/:movieId').get(controller.getById);
 

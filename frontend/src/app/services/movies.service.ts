@@ -13,7 +13,7 @@ export class MoviesService {
   constructor(private http: HttpClient) { }
 
   getMovies():Observable<any> {
-    return this.http.get('assets/dummy-data/movies.data.json');
+    return this.http.get(API_ENDPOINT);
   }
 
   getMovieById(movieId: string):Observable<any> {

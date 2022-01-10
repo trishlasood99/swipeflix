@@ -21,6 +21,7 @@ export class MovieQueueComponent implements OnInit {
   getMovies(): void {
     console.log("Getting movies!");
     this.moviesService.getMovies().subscribe(movies => {
+      console.log(movies);
       this.moviesList = movies;
       this.index=0;
       this.limit = (10<this.moviesList.length)?10:this.moviesList.length;

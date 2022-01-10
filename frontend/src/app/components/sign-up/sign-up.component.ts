@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { UserPreferencesService } from '../../services/user-preferences.service';
 import { User } from '../../models/user.model';
+import { TokenStorageService } from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -27,7 +28,7 @@ export class SignUpComponent implements OnInit {
   // Otherwise this.userPreferenceForm.get('genresList') will return as AbstractControl
   genresList:FormArray = this.userPreferencesForm.get('genresList') as FormArray;
 
-  constructor(private authService: AuthService, private userPreferencesService: UserPreferencesService) { }
+  constructor(private authService: AuthService, private userPreferencesService: UserPreferencesService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.populateForm();
@@ -55,7 +56,10 @@ export class SignUpComponent implements OnInit {
   signUp() {
     let user = new User(this.signUpForm.get('username')!.value, this.signUpForm.get('email')!.value,
       this.signUpForm.get('password')!.value);
-    this.authService.signUp(user).subscribe((data:any) => console.log(data.message));
+    this.authService.signUp(user).subscribe((data:any) =>{
+      console.log(data.message);
+      this.tokenService.saveToken(data.accessToken);
+    });
   }
 
   setUserPreferences() {
@@ -66,7 +70,7 @@ export class SignUpComponent implements OnInit {
         }
     }
     let minRating = this.userPreferencesForm.get('imdb')!.value||0;
-    this.userPreferencesService.postUserPreferences(selectedGenres, minRating);
+    this.userPreferencesService.postUserPreferences(selectedGenres, minRating).subscribe();
   }
 
 }

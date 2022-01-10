@@ -22,8 +22,10 @@ export class UserPreferencesService {
   }
 
   postUserPreferences(genres:string[], rating: number) {
-    console.log(genres);
-    console.log(rating);
+    return this.http.post(API_ENDPOINT,{
+      genres: genres,
+      imdb_rating: rating
+    }, httpOptions);
   }
 
   patchUserPreferences(genres:string[], rating: number) {

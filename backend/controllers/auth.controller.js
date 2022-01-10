@@ -17,13 +17,14 @@ function authController(User) {
       if (err) {
         return res.status(500).send({ message: err });
       }
-      return res.status(200).send(
-        {
-          message: 'User successfully registered!',
-          username: user.username,
-          email: user.email,
-        },
-      );
+      const token = jwt
+        .sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: 86400 });
+      return res.status(200).send({
+        message: 'User successfully registered!',
+        username: user.username,
+        email: user.email,
+        accessToken: token,
+      });
     });
   }
 
